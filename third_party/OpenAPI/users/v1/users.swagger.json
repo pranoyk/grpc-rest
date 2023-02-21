@@ -114,12 +114,7 @@
       }
     },
     "v1AddUserRequest": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "v1AddUserResponse": {
       "type": "object",
@@ -147,7 +142,7 @@
     }
   },
   "externalDocs": {
-    "description": "gRPC-gateway boilerplate repository",
-    "url": "https://github.com/johanbrandhorst/grpc-gateway-boilerplate"
+    "description": "RESTful service with gRPC",
+    "url": "https://github.com/pranoyk/grpc-rest"
   }
 }
