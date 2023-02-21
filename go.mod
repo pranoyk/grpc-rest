@@ -3,6 +3,7 @@ module github.com/pranoyk/grpc-rest
 go 1.19
 
 require (
+	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.14.0
 	google.golang.org/genproto v0.0.0-20221114212237-e4508ebdbee1
 	google.golang.org/grpc v1.50.1

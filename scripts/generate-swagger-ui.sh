@@ -2,7 +2,7 @@
 
 set -e
 
-[[ -z "$SWAGGER_UI_VERSION" ]] && echo "missing \$SWAGGER_UI_VERSION" && exit 1
+[ -z "$SWAGGER_UI_VERSION" ] && echo "missing \$SWAGGER_UI_VERSION" && exit 1
 
 SWAGGER_UI_GIT="https://github.com/swagger-api/swagger-ui.git"
 CACHE_DIR="./.cache/swagger-ui/$SWAGGER_UI_VERSION"
