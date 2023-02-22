@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
+	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*User, error)
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (UserService_ListUsersClient, error)
 }
 
@@ -34,8 +34,8 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error) {
-	out := new(AddUserResponse)
+func (c *userServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
 	err := c.cc.Invoke(ctx, "/users.v1.UserService/AddUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -59,7 +59,7 @@ func (c *userServiceClient) ListUsers(ctx context.Context, in *ListUsersRequest,
 }
 
 type UserService_ListUsersClient interface {
-	Recv() (*ListUsersResponse, error)
+	Recv() (*User, error)
 	grpc.ClientStream
 }
 
@@ -67,8 +67,8 @@ type userServiceListUsersClient struct {
 	grpc.ClientStream
 }
 
-func (x *userServiceListUsersClient) Recv() (*ListUsersResponse, error) {
-	m := new(ListUsersResponse)
+func (x *userServiceListUsersClient) Recv() (*User, error) {
+	m := new(User)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (x *userServiceListUsersClient) Recv() (*ListUsersResponse, error) {
 // All implementations should embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
+	AddUser(context.Context, *AddUserRequest) (*User, error)
 	ListUsers(*ListUsersRequest, UserService_ListUsersServer) error
 }
 
@@ -87,7 +87,7 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
+func (UnimplementedUserServiceServer) AddUser(context.Context, *AddUserRequest) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
 }
 func (UnimplementedUserServiceServer) ListUsers(*ListUsersRequest, UserService_ListUsersServer) error {
@@ -132,7 +132,7 @@ func _UserService_ListUsers_Handler(srv interface{}, stream grpc.ServerStream) e
 }
 
 type UserService_ListUsersServer interface {
-	Send(*ListUsersResponse) error
+	Send(*User) error
 	grpc.ServerStream
 }
 
@@ -140,7 +140,7 @@ type userServiceListUsersServer struct {
 	grpc.ServerStream
 }
 
-func (x *userServiceListUsersServer) Send(m *ListUsersResponse) error {
+func (x *userServiceListUsersServer) Send(m *User) error {
 	return x.ServerStream.SendMsg(m)
 }
 

@@ -107,7 +107,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_UserService_AddUser_0(ctx, mux, outboundMarshaler, w, req, response_UserService_AddUser_0{resp}, mux.GetForwardResponseOptions()...)
+		forward_UserService_AddUser_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -175,7 +175,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_UserService_AddUser_0(ctx, mux, outboundMarshaler, w, req, response_UserService_AddUser_0{resp}, mux.GetForwardResponseOptions()...)
+		forward_UserService_AddUser_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -195,32 +195,11 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_UserService_ListUsers_0(ctx, mux, outboundMarshaler, w, req, func() (proto.Message, error) {
-			res, err := resp.Recv()
-			return response_UserService_ListUsers_0{res}, err
-		}, mux.GetForwardResponseOptions()...)
+		forward_UserService_ListUsers_0(ctx, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
-}
-
-type response_UserService_AddUser_0 struct {
-	proto.Message
-}
-
-func (m response_UserService_AddUser_0) XXX_ResponseBody() interface{} {
-	response := m.Message.(*AddUserResponse)
-	return response.User
-}
-
-type response_UserService_ListUsers_0 struct {
-	proto.Message
-}
-
-func (m response_UserService_ListUsers_0) XXX_ResponseBody() interface{} {
-	response := m.Message.(*ListUsersResponse)
-	return response.User
 }
 
 var (

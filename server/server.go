@@ -22,7 +22,7 @@ func New() *Backend {
 }
 
 // AddUser adds a user to the in-memory store.
-func (b *Backend) AddUser(ctx context.Context, _ *usersv1.AddUserRequest) (*usersv1.AddUserResponse, error) {
+func (b *Backend) AddUser(ctx context.Context, _ *usersv1.AddUserRequest) (*usersv1.User, error) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
@@ -31,9 +31,7 @@ func (b *Backend) AddUser(ctx context.Context, _ *usersv1.AddUserRequest) (*user
 	}
 	b.users = append(b.users, user)
 
-	return &usersv1.AddUserResponse{
-		User: user,
-	}, nil
+	return user, nil
 }
 
 // ListUsers lists all users in the store.
@@ -42,7 +40,7 @@ func (b *Backend) ListUsers(_ *usersv1.ListUsersRequest, srv usersv1.UserService
 	defer b.mu.RUnlock()
 
 	for _, user := range b.users {
-		err := srv.Send(&usersv1.ListUsersResponse{User: user})
+		err := srv.Send(user)
 		if err != nil {
 			return err
 		}
